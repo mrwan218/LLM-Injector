@@ -28,31 +28,79 @@ LLM Injector acts as a bridge between an LLM and your operating system, enabling
 
 ---
 
-## Quick Start — CLI
+## One-Click Install (Recommended)
 
-### 1. Set Up the Environment
+An automatic installation script handles everything for you — Python venv, pip dependencies, Node.js modules, and the WebUI build.
+
+### Linux / macOS
 
 ```bash
 # Clone the repository
 git clone https://github.com/mrwan218/LLM-Injector.git
 cd LLM-Injector
 
-# Create and activate a virtual environment
+# Make the script executable and run it
+chmod +x install.sh
+./install.sh
+```
+
+### Windows
+
+```cmd
+REM Clone the repository
+git clone https://github.com/mrwan218/LLM-Injector.git
+cd LLM-Injector
+
+REM Run the installer
+install.bat
+```
+
+### Install Options
+
+| Option | Description |
+|---|---|
+| `./install.sh` | Full install (CLI + WebUI) |
+| `./install.sh --cli-only` | Install only the Python CLI |
+| `./install.sh --webui-only` | Install only the WebUI |
+| `./install.sh --skip-checks` | Skip system requirement checks |
+| `./install.sh --help` | Show all available options |
+
+The script will:
+1. Check for Python 3.9+ and Node.js 18+
+2. Create a Python virtual environment and install pip dependencies
+3. Create the workspace directory with sample files
+4. Install Node.js dependencies and build the WebUI
+
+---
+
+## Quick Start — CLI
+
+If you already ran the install script, the CLI is ready. Just activate the venv:
+
+```bash
+source venv/bin/activate    # Linux/Mac
+venv\Scripts\activate       # Windows
+```
+
+### Manual Setup (without install script)
+
+```bash
+git clone https://github.com/mrwan218/LLM-Injector.git
+cd LLM-Injector
+
 python -m venv venv
 source venv/bin/activate   # On Windows: venv\Scripts\activate
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Start LLM Studio
+### Start LLM Studio
 
 1. Launch **LM Studio**
 2. Load a model (recommended: Llama 3, Mistral, or any model that supports JSON output)
 3. Start the **local server** (usually on `http://localhost:1234`)
 4. Verify the server is running by visiting `http://localhost:1234/v1/models` in your browser
 
-### 3. Run LLM Injector
+### Run LLM Injector
 
 ```bash
 # Basic usage (default settings)
@@ -75,22 +123,25 @@ python llm_injector.py --config my_config.yaml
 
 ## Quick Start — WebUI
 
-### 1. Install Dependencies
+If you already ran the install script, the WebUI is built. Just start it:
+
+```bash
+cd webui
+npm run dev    # Development server
+cd .. && cd webui && npm start   # Production server
+```
+
+### Manual Setup (without install script)
 
 ```bash
 cd webui
 npm install
-```
-
-### 2. Start the Development Server
-
-```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Configure
+### Configure
 
 - Click the **Settings** tab in the sidebar to configure:
   - **API URL** — Your LLM Studio endpoint (default: `http://localhost:1234/v1/chat/completions`)
@@ -99,9 +150,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
   - **Read-Only Mode** — Disable file write operations
   - **Workspace Path** — Path to the sandboxed workspace directory
 
-### 4. Build for Production
+### Build for Production
 
 ```bash
+cd webui
 npm run build
 npm start
 ```
@@ -130,6 +182,8 @@ AI: Done! I've created summary.txt with the summary.
 
 ```
 llm_injector/
+├── install.sh               # Auto-install script (Linux/Mac)
+├── install.bat              # Auto-install script (Windows)
 ├── llm_injector.py          # Main CLI wrapper script with conversation loop
 ├── tools.py                 # File system functions + security checks
 ├── config.yaml              # User-configurable settings
@@ -263,6 +317,9 @@ While in the interactive CLI session:
 | Binary file error | Binary files are automatically detected and rejected for reading |
 | WebUI 404 on files | Ensure the workspace directory exists and is accessible |
 | WebUI not connecting | Verify the API URL in Settings matches your LLM Studio endpoint |
+| Install script fails on Python | Make sure Python 3.9+ is in your PATH. On Windows, re-run the installer with "Add to PATH" checked |
+| Install script fails on npm | Ensure Node.js 18+ is installed from [nodejs.org](https://nodejs.org) |
+| Permission denied on install.sh | Run `chmod +x install.sh` first, then `./install.sh` |
 
 ---
 

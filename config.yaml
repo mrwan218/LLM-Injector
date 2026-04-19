@@ -1,0 +1,59 @@
+# LLM Injector Configuration
+# =============================
+
+# Path to the workspace directory (sandboxed folder for all file operations)
+# Use an absolute path for reliability, or a relative path from the project root.
+workspace: "./workspace"
+
+# Enable read-only mode (disables write_file, delete_file, create_directory)
+read_only: false
+
+# Maximum file size (in MB) that can be read in a single call
+max_read_size_mb: 1
+
+# Maximum content size (in MB) that can be written in a single call
+max_write_size_mb: 10
+
+# Total session quota (in MB) – combined read + write across all operations
+session_quota_mb: 50
+
+# File extensions that are BLOCKED (cannot be read or written)
+blocked_extensions:
+  - ".exe"
+  - ".sh"
+  - ".bat"
+  - ".cmd"
+  - ".ps1"
+  - ".com"
+  - ".msi"
+  - ".scr"
+  - ".pif"
+  - ".dll"
+  - ".sys"
+  - ".bin"
+
+# File extensions that are ALLOWED.
+# Leave this empty or comment it out to allow all extensions except blocked ones.
+# allowed_extensions:
+#   - ".txt"
+#   - ".md"
+#   - ".csv"
+#   - ".json"
+#   - ".py"
+#   - ".js"
+
+# LLM Studio API endpoint
+api_url: "http://localhost:1234/v1/chat/completions"
+
+# Model name (passed to LLM Studio – any string is accepted for local models)
+model_name: "local-model"
+
+# Generation parameters
+temperature: 0.2
+max_tokens: 2048
+
+# Maximum number of tool-call rounds per user message (prevents infinite loops)
+max_tool_rounds: 10
+
+# Logging level: DEBUG, INFO, WARNING, ERROR
+log_level: "INFO"

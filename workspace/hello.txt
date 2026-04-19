@@ -1,0 +1,7 @@
+Hello, World! This is a test file.
+
+Line 1: Welcome to LLM Injector
+Line 2: This file is stored in the workspace directory
+Line 3: You can read this file via natural language
+Line 4: The LLM will parse your request and call read_file
+Line 5: Enjoy!
